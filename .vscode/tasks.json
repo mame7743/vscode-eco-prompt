@@ -4,13 +4,31 @@
     {
       "type": "npm",
       "script": "compile",
+      "label": "npm: compile",
       "group": "build",
       "presentation": { "reveal": "silent" },
       "problemMatcher": "$tsc"
     },
     {
       "type": "npm",
+      "script": "build:webview",
+      "label": "npm: build:webview",
+      "group": "build",
+      "presentation": { "reveal": "silent" },
+      "problemMatcher": []
+    },
+    {
+      "label": "build:all",
+      "dependsOn": ["npm: compile", "npm: build:webview"],
+      "dependsOrder": "parallel",
+      "group": { "kind": "build", "isDefault": true },
+      "presentation": { "reveal": "silent" },
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
       "script": "watch",
+      "label": "npm: watch",
       "group": "build",
       "isBackground": true,
       "presentation": { "reveal": "silent" },
@@ -18,14 +36,8 @@
     },
     {
       "type": "npm",
-      "script": "build:webview",
-      "group": "build",
-      "presentation": { "reveal": "silent" },
-      "problemMatcher": []
-    },
-    {
-      "type": "npm",
       "script": "watch:webview",
+      "label": "npm: watch:webview",
       "group": "build",
       "isBackground": true,
       "presentation": { "reveal": "silent" },
