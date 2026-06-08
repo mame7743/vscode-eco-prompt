@@ -50,20 +50,25 @@ npm install
 
 ### ホットリロード（ファイル変更を即反映）
 
-TypeScript を watch モードでビルドしておくと、ファイルを保存するたびに自動コンパイルされます。
+拡張機能本体（Node.js 側）と Webview（React 側）でそれぞれ watch を起動します。
+**ターミナルを2つ**開いて実行してください。
 
 ```bash
+# ターミナル1: 拡張機能本体（src/extension.ts など）
 npm run watch
+
+# ターミナル2: Webview の React コード（src/webview/ 以下）
+npm run watch:webview
 ```
 
-watch を起動した状態で Extension Development Host を **`Ctrl+R`（Windows/Linux）/ `Cmd+R`（Mac）** でリロードすると最新コードが反映されます。
+その後 F5 で Extension Development Host を起動し、変更を保存したら **`Ctrl+R`（Mac: `Cmd+R`）** でリロードすると反映されます。
 
 launch.json には watch モード用の構成も用意しています。
 
 | 構成名 | 説明 |
 |---|---|
-| **Run Extension** | F5 で起動。毎回 `npm run compile` を実行してからホストを起動 |
-| **Run Extension (watch)** | `npm run watch` を先に起動した状態で使う。コンパイル待ちなし |
+| **Run Extension** | F5 で起動。毎回 `npm run compile` と `npm run build:webview` を実行 |
+| **Run Extension (watch)** | watch を先に起動した状態で使う。コンパイル待ちなし |
 
 ### ブレークポイントの使い方
 
@@ -95,15 +100,35 @@ console.log('EcoPrompt:', someValue);
 vscode-eco-prompt/
 ├── src/
 │   ├── extension.ts              # エントリポイント。プロバイダ登録
-│   ├── EcoPromptViewProvider.ts  # サイドバー Webview の実装
-│   └── templates.ts              # プロンプトテンプレート定義
+│   ├── EcoPromptViewProvider.ts  # サイドバー Webview プロバイダ（React バンドルを読み込む）
+│   ├── templates.ts              # プロンプトテンプレート定義
+│   └── webview/                  # React アプリ（Vite でビルド → out/webview/ へ出力）
+│       ├── main.tsx              # React エントリポイント
+│       ├── App.tsx               # ルートコンポーネント・状態管理
+│       ├── styles.css            # VS Code テーマ変数を使ったスタイル
+│       └── components/
+│           ├── TemplateSelector.tsx
+│           ├── FieldForm.tsx
+│           └── Preview.tsx
 ├── resources/
 │   └── icon.svg                  # アクティビティバーアイコン
 ├── .vscode/
 │   ├── launch.json               # F5 デバッグ設定
 │   └── tasks.json                # ビルドタスク設定
-├── package.json                  # 拡張機能マニフェスト
-└── tsconfig.json
+├── vite.config.ts                # Webview 用 Vite 設定
+├── tsconfig.json                 # 拡張機能本体用（webview/ を除外）
+├── tsconfig.webview.json         # Webview 用（Vite が参照）
+└── package.json                  # 拡張機能マニフェスト
+```
+
+### ビルドの仕組み
+
+```
+src/webview/ ──[Vite]──▶ out/webview/main.js, main.css
+src/*.ts     ──[tsc]───▶ out/*.js
+                              │
+                    EcoPromptViewProvider が
+                    out/webview/main.js を HTML に埋め込む
 ```
 
 ---

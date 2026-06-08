@@ -15,6 +15,21 @@
       "isBackground": true,
       "presentation": { "reveal": "silent" },
       "problemMatcher": "$tsc-watch"
+    },
+    {
+      "type": "npm",
+      "script": "build:webview",
+      "group": "build",
+      "presentation": { "reveal": "silent" },
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "watch:webview",
+      "group": "build",
+      "isBackground": true,
+      "presentation": { "reveal": "silent" },
+      "problemMatcher": []
     }
   ]
 }
