@@ -1,0 +1,102 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--vscode-font-family);
+  font-size: var(--vscode-font-size);
+  color: var(--vscode-foreground);
+  background: var(--vscode-sideBar-background);
+  margin: 0;
+  padding: 10px;
+}
+
+.container { display: flex; flex-direction: column; gap: 0; }
+
+h1 { font-size: 1em; font-weight: 700; margin: 0 0 4px; }
+
+.subtitle {
+  font-size: 0.8em;
+  color: var(--vscode-descriptionForeground);
+  margin: 0 0 12px;
+}
+
+.section-label {
+  font-size: 0.78em;
+  font-weight: 600;
+  color: var(--vscode-descriptionForeground);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 14px 0 6px;
+}
+
+/* Template buttons */
+.tmpl-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.tmpl-btn {
+  background: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  border: 1px solid var(--vscode-button-border, transparent);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.82em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tmpl-btn:hover { background: var(--vscode-button-secondaryHoverBackground); }
+.tmpl-btn.active {
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+}
+
+/* Fields */
+.tmpl-fields { margin-top: 4px; }
+.tmpl-fields label {
+  display: block;
+  font-size: 0.8em;
+  color: var(--vscode-descriptionForeground);
+  margin: 8px 0 3px;
+}
+.tmpl-fields input,
+.tmpl-fields textarea {
+  width: 100%;
+  background: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  border: 1px solid var(--vscode-input-border, #555);
+  border-radius: 3px;
+  padding: 5px 7px;
+  font-family: inherit;
+  font-size: 0.9em;
+  resize: vertical;
+}
+.tmpl-fields textarea { min-height: 80px; }
+
+/* Preview */
+.preview {
+  width: 100%;
+  min-height: 90px;
+  background: var(--vscode-textCodeBlock-background, #1e1e1e);
+  color: var(--vscode-editor-foreground);
+  border: 1px solid var(--vscode-input-border, #555);
+  border-radius: 3px;
+  padding: 7px;
+  font-family: var(--vscode-editor-font-family, monospace);
+  font-size: 0.85em;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.preview.empty { color: var(--vscode-descriptionForeground); font-style: italic; }
+
+/* Copy button */
+.copy-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 7px;
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-weight: 600;
+  cursor: pointer;
+}
+.copy-btn:hover { filter: brightness(1.1); }
+.copy-btn:disabled { opacity: 0.45; cursor: default; }
