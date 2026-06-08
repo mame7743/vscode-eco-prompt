@@ -1,3 +1,5 @@
 out/
 node_modules/
 *.vsix
+vite.config.js
+vite.config.js.map
